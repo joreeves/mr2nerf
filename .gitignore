@@ -1,0 +1,8 @@
+*.log
+*.log*
+
+*.__pycache__/
+*.json
+
+**/.ipynb_checkpoints
+**/.ipynb_checkpoints/*
