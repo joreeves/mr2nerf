@@ -1,13 +1,12 @@
 *.log
 *.log*
+*.pyc
 
-*.__pycache__/
+.conda
+__pycache__/
 *.json
 
 **/.ipynb_checkpoints
 **/.ipynb_checkpoints/*
 *.log
 *.log*
-
-*.__pycache__/
-*.json
