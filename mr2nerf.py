@@ -59,6 +59,11 @@ from utils import sharpness, Mat2Nerf, central_point, plot, _PLT, reflect
 from concurrent.futures import ThreadPoolExecutor
 
 
+ROT_MAT = np.array([[1, 0, 0, 0],
+                    [0, 0, 1, 0],
+                    [0,-1, 0, 0],
+                    [0, 0, 0, 1]])
+
 def parse_args():
     parser = argparse.ArgumentParser(description="convert Reality Capture csv export to nerf format transforms.json")
 
@@ -97,7 +102,7 @@ def build_sensor(intrinsic):
     # Focal length in pixels
     out["fl_x"] = (out["w"] * focal) / sensor_width
     out["fl_y"] = (out["h"] * focal) / sensor_height
-    
+
     # out["fl_x"] = focal
     # out["fl_y"] = focal
 
@@ -178,14 +183,12 @@ if __name__ == "__main__":
         ctr = ctr.astype(float)
 
         M = np.eye(4)
-        M[:3,:3] = rot#((rot @ reflect(1, 3)) @ reflect(2, 3))
-        # M[0, :3] = rot[1, :3]
-        # M[1, :3] = rot[0, :3]
-        # M[2, :3] = rot[2, :3]
+        M[:3, :3] = rot
+        M[:3, 3] = ctr * args.scale
 
-        M[:3,3] = ctr * args.scale
+        M = Mat2Nerf(M.astype(float))
 
-        transforms[pose['poseId']] = Mat2Nerf(M.astype(float))
+        transforms[pose['poseId']] = np.dot(ROT_MAT, M)
 
     intrinsics = {}
     for intrinsic in data['intrinsics']:
