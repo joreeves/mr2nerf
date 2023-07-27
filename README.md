@@ -3,6 +3,7 @@ This tool is for use with https://github.com/NVlabs/instant-ngp and allows the u
 
 ## Usage
 In Meshroom, add a ConvertSfMFormat node and change the SfM Format to json.
+![af32538a-bd34-4c62-aa1d-9706002ea0a0](https://github.com/joreeves/mr2nerf/assets/82180221/3663a596-fe07-4a40-9cd8-e78cb2ca593d)
 
 Optional: Meshroom does not align or constrain solved cameras, you may want to add 
 a SfMTransform after the StructureFromMotion node, set the Transformation Method to Manual,
@@ -12,6 +13,7 @@ When you Start the Meshroom processing, it will generate a folder for the output
 ConvertSfMFormat node, which you can easily find by right clicking on the node and
 selecting Open Folder. The file sfm.json will be generated when Meshroom is done processing.
 This is the file you need for this script's `--input` function.
+![0eec4a33-97a7-4c38-91dd-5261500aae68](https://github.com/joreeves/mr2nerf/assets/82180221/1cd001b8-7612-44f1-abe7-a4696a98a357)
 
 Run the mr2nerf.py on this JSON file using the following command, replacing the text in brackets […] with the file names and paths on your machine:
 
