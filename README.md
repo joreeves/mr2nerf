@@ -2,37 +2,37 @@
 This tool is for use with https://github.com/NVlabs/instant-ngp and allows the use of Meshroom camera locations.
 
 ## Usage
-Use Meshroom to align cameras.
+In Meshroom, add a ConvertSfMFormat node and change the SfM Format to json.
 
-Export cameras alignment
-```
-Alignment -> Export -> Registration -> Internal/External camera parameters...
-```
+Optional: Meshroom does not align or constrain solved cameras, you may want to add 
+a SfMTransform after the StructureFromMotion node, set the Transformation Method to Manual,
+and adjust the location and rotation of the solved cameras.
 
-Save the JSON file exported from Meshroom into the directory that contains your /images folder.
+When you Start the Meshroom processing, it will generate a folder for the output of the
+ConvertSfMFormat node, which you can easily find by right clicking on the node and
+selecting Open Folder. The file sfm.json will be generated when Meshroom is done processing.
+This is the file you need for this script's `--input` function.
 
-Open a shell (CMD, Powershell, Bash, etc.) and navigate to the directory with your CSV file and /images folder:
-
-cd [PATH TO FOLDER]
-
-Run the mr2nerf.py on this CSV file using the following command, replacing the text in brackets […] with the file names and paths on your machine:
+Run the mr2nerf.py on this JSON file using the following command, replacing the text in brackets […] with the file names and paths on your machine:
 
 ## Commands
 Example:
+- Replace `[PATH_TO_JSON_FILE]` with the path to the JSON that was exported from Meshroom
+- Replace `[PATH_TO_IMAGES]` with the path to your images folder
 ```
-python "[PATH TO iNGP]\mr2nerf.py" --input "[NAME_OF_JSON_FILE].json" --imgfolder .\images
+python mr2nerf.py --input "[PATH_TO_JSON_FILE].json" --imgfolder "[PATH_TO_IMAGES]"
 ```
 The quotes are only required if you have spaces in any of the folder or file names.
 
 ## Additional command examples
-Scale the scene down by 0.01
+Scale the scene up by 100
 ```
-python "[PATH TO iNGP]\mr2nerf.py" --input "[NAME_OF_JSON_FILE].json" --imgfolder .\images --scale 0.01
+python mr2nerf.py --input "[NAME_OF_JSON_FILE].json" --imgfolder "[PATH_TO_IMAGES]" --scale 100
 ```
 
 Display the cameras in 3d and set the camera size (for debugging only, requires installing `matplotlib` and `pytransform3d`)
 ```
-python "[PATH TO iNGP]\mr2nerf.py" --input "[NAME_OF_JSON_FILE].json" --imgfolder .\images --plot --camera_size 1
+python mr2nerf.py --input "[NAME_OF_JSON_FILE].json" --imgfolder "[PATH_TO_IMAGES]" --plot --camera_size 1
 ```
 
 Arguments:
