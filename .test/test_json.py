@@ -4,7 +4,7 @@ import numpy as np
 import json
 
 # json_path = r"C:\Users\jreeves\Downloads\for_JSON\sfm_in-ext_only.json"
-json_path = r"C:\Users\jreeves\Downloads\for_JSON\sfm_all.json"
+json_path = r"C:\Users\jreeves\Downloads\sfm3.json"
 
 with open(json_path, 'r') as f:
     data = json.load(f)

@@ -101,7 +101,13 @@ def build_sensor(intrinsic):
 
     # Focal length in pixels
     out["fl_x"] = (out["w"] * focal) / sensor_width
-    out["fl_y"] = (out["h"] * focal) / sensor_height
+
+    # Check W/H ratio to sensor ratio
+    if np.isclose((out["w"] / out["h"]), (sensor_width / sensor_height)):
+        out["fl_y"] = (out["h"] * focal) / sensor_height
+    else:
+        LOGGER.warning("W/H ratio does not match sensor ratio, this is likely a bug from Meshroom. Will use fl_x to set fl_y.")
+        out["fl_y"] = out["fl_x"]
 
     # out["fl_x"] = focal
     # out["fl_y"] = focal
