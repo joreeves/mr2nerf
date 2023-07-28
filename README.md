@@ -46,8 +46,8 @@ Arguments:
 | --imgfolder            | .\images        | location of image folder                     |
 | --imgtype              | jpg             | ex.: jpg, png, ...                           |
 | --aabb_scale           | 16              | sets the aabb scale                          |
-| --no_scene_orientation | False           | disable the Reality Capture orientation      |
-| --no_scale             | False           | disable the Reality Capture scale            |
+| --no_scene_orientation | False           | disable the Meshroom orientation             |
+| --no_scale             | False           | disable the Meshroom scale                   |
 | --no_center            | False           | disable the scene centering                  |
 | --plot                 | False           | display the camera positions                 |
 | --camera_size          | 0.1             | the size of the displayed cameras            |
