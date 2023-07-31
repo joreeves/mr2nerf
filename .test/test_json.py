@@ -4,7 +4,7 @@ import numpy as np
 import json
 
 # json_path = r"C:\Users\jreeves\Downloads\for_JSON\sfm_in-ext_only.json"
-json_path = r"C:\Users\jreeves\Downloads\sfm3.json"
+json_path = r"C:\Code\mr2nerf\.issues\issue_03\sfm\sfm.json"
 
 with open(json_path, 'r') as f:
     data = json.load(f)
@@ -17,17 +17,22 @@ with open(json_path, 'r') as f:
 
 # %%
 
+
 poses = data['poses']  # Transforms
 intrinsics = data['intrinsics']  # Camera intrinsics
 views = data['views']
 structure = data['structure']
 
+
 # %%
+
 
 pose_ids = [p['poseId'] for p in poses]
 intrinsic_ids = [i['intrinsicId'] for i in intrinsics]
 
+
 # %% CHECK TRANSFORM
+
 
 pose = poses[0]['pose']
 
@@ -38,6 +43,7 @@ center = transform['center']
 M = np.eye(4)
 M[:3,:3] = np.array(rotation).reshape(3,3)
 M[:3,3] = np.array(center)
+
 
 # %%
 
