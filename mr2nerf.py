@@ -211,7 +211,7 @@ if __name__ == "__main__":
         # Check if the image exists
         new_path = (IMGFOLDER / name).with_suffix(f'.{args.imgtype}')
 
-        if (new_path not in files) or (new_path.exists() == False):
+        if (not args.debug_ignore_images) and ((new_path not in files) or (new_path.exists() == False)):
             LOGGER.warning(f'Image not found: {name}')
             continue
 
@@ -223,9 +223,14 @@ if __name__ == "__main__":
 
         camera = {}
         camera.update(dc(intrinsics[intrinsicId]))
-        camera['transform_matrix'] = transforms[poseId]
-        camera['file_path'] = str(new_path)
-        camera['ids'] = [poseId, intrinsicId]
+
+        if poseId in transforms:
+            camera['transform_matrix'] = transforms[poseId]
+            camera['file_path'] = str(new_path)
+            camera['ids'] = [poseId, intrinsicId]
+        else:
+            LOGGER.warning(f'PoseId {poseId} not found in transforms, skipping image: {name}')
+            continue
 
         frames.append(camera)
 
